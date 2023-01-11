@@ -128,6 +128,7 @@ public class BottlesJavaFX extends Application {
             }
         } else {
             if (isPut(circleInTop, clickBottleNumber)) {
+                upToTopBack(circleInTop);
                 move(circleInTop, clickBottleNumber);
                 circleInTop = -1;
             } else {
@@ -138,7 +139,7 @@ public class BottlesJavaFX extends Application {
                 }
             }
         }
-        update(lastStep.getTable());
+//        update(lastStep.getTable());
     }
 
     public boolean isPut(int from, int to) {
@@ -151,7 +152,7 @@ public class BottlesJavaFX extends Application {
     public void upToTop(int from) {
         topNodes.get(from).setFill(lastStep.getTable().getBottle(from).getLastColor().getColor());
         int n = lastStep.getTable().getBottle(from).getOccupancyRate();
-        winBottles.get(from).setColor(n - 1, CC.NULL.getColor());
+        winBottles.get(from).setColor(n-1, CC.NULL.getColor());
     }
 
     public void upToTopBack(int from) {
@@ -161,9 +162,11 @@ public class BottlesJavaFX extends Application {
     }
 
     public void move(int from, int to) {
-        Table table = new Table(lastStep.getTable());
-        table.move(from, to);
-        lastStep = Step.steps.get(table.calcState());
+        if (from == to) return;
+//        Table table = new Table(lastStep.getTable());
+        lastStep.getTable().move(from, to);
+//        lastStep = Step.steps.get(table.calcState());
+
         update(lastStep.getTable());
     }
 
